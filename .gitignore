@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/packages
+/BarGraphTests/bin/Debug
+/BarGraphTests/obj
+/BarGraph/bin
+/BarGraph/obj/Debug

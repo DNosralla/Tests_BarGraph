@@ -1,0 +1,73 @@
+﻿<br />
+
+<div class="row">
+    <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+            accept="*.txt" ngf-max-height="1000" ngf-max-size="1MB">
+        Select File
+    </button>
+</div>
+
+<br />
+
+<div class="row" ng-hide="validFile">
+    <div class="panel panel-danger">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Invalid file, the following errors where found:</div>
+        <!-- Table -->
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Line #</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="line in graphData | filter : { isValid : false}">
+                    <td>{{line.lineNumber}}</td>
+                    <td>{{line.error}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="row" ng-show="validFile && graphData.length > 0">
+
+    <label>
+        Auto Update:
+        <input type="checkbox" ng-model="chartSettings.autoUpdate">
+    </label>
+    <br />
+    <label>
+        Update Interval:
+        <input type="number" min="100" ng-model="chartSettings.updateInterval">
+    </label>
+    <br />
+    <canvas id="bar" class="chart chart-bar"
+            chart-data="chartSettings.data" chart-labels="chartSettings.labels" chart-colors="chartSettings.colors"
+            chart-options="{scales:{yAxes:[{ticks:{beginAtZero:true}}]}}"></canvas>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">File {{file.name}}</div>
+        <!-- Table -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="line in graphData">
+                    <td>{{line.name}}</td>
+                    <td><span class="label label-default" ng-style="{'background-color':line.color}">&nbsp;</span> {{line.color}}</td>
+                    <td>{{line.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
